@@ -1,0 +1,108 @@
+mixed-port: 7890
+allow-lan: true
+mode: rule
+geodata-mode: true
+log-level: info
+
+dns:
+  enable: true
+  ipv6: true
+  enhanced-mode: fake-ip
+  nameserver:
+    - 223.5.5.5
+    - 1.1.1.1
+
+proxies:
+  - name: VLESS-Reality
+    type: vless
+    server: 23.175.24.34
+    port: 443
+    uuid: "11e97eab-55a7-43be-90c7-3eac03a910da"
+    network: tcp
+    tls: true
+    udp: true
+    servername: "amd.com"
+    flow: xtls-rprx-vision
+    client-fingerprint: firefox
+    reality-opts:
+      public-key: "RW1T1rfTDzQRhB-rPc4gL_Mqh4FekT8RNolFZB0r1y4"
+
+  - name: TUIC
+    type: tuic
+    server: 23.175.24.34
+    port: 443
+    uuid: "11e97eab-55a7-43be-90c7-3eac03a910da"
+    password: "5fh2AIt7Yl"
+    sni: "amd.com"
+    udp: true
+    skip-cert-verify: true
+    congestion-controller: bbr
+    alpn:
+      - h3
+      - h2
+      - http/1.1
+
+  - name: Hysteria2
+    type: hysteria2
+    server: 23.175.24.34
+    port: 8443
+    password: "5fh2AIt7Yl"
+    sni: "amd.com"
+    skip-cert-verify: true
+    fast-open: false
+
+proxy-groups:
+  - name: 节点选择
+    type: select
+    proxies:
+      - VLESS-Reality
+      - TUIC
+      - Hysteria2
+      - DIRECT
+
+rules:
+  # =========================
+  # 内网 & 本地
+  # =========================
+  - GEOIP,private,DIRECT,no-resolve
+
+  # =========================
+  # 国内流量（自动直连）
+  # =========================
+  - GEOIP,CN,DIRECT,no-resolve
+  - GEOSITE,cn,DIRECT
+
+  # =========================
+  # AI / 海外服务
+  # =========================
+  - GEOSITE,openai,节点选择
+  - GEOSITE,anthropic,节点选择
+  - GEOSITE,google,节点选择
+  - GEOSITE,youtube,节点选择
+
+  # =========================
+  # 开发 / 工具
+  # =========================
+  - GEOSITE,github,节点选择
+  - GEOSITE,gitlab,节点选择
+  - GEOSITE,docker,节点选择
+
+  # =========================
+  # 游戏平台
+  # =========================
+  - GEOSITE,steam,节点选择
+  - GEOSITE,epicgames,节点选择
+  - GEOSITE,ea,节点选择
+
+  # =========================
+  # 社交平台
+  # =========================
+  - GEOSITE,telegram,节点选择
+  - GEOSITE,discord,节点选择
+  - GEOSITE,x,节点选择
+  - GEOSITE,twitter,节点选择
+
+  # =========================
+  # 默认兜底
+  # =========================
+  - MATCH,节点选择
