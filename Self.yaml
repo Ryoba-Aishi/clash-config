@@ -73,6 +73,79 @@ rules:
   - GEOSITE,cn,DIRECT
 
   # =========================
+  # Steam 下载优化（放在 GEOSITE,steam 前面）
+  # 下载 CDN 全部直连，不消耗 VPS 流量
+  # =========================
+  - DOMAIN-KEYWORD,steampipe,DIRECT
+  - DOMAIN-KEYWORD,steamcontent,DIRECT
+
+  - DOMAIN-SUFFIX,steamcontent.com,DIRECT
+  - DOMAIN-SUFFIX,steampipe.akamaized.net,DIRECT
+  - DOMAIN-SUFFIX,steampipe-partner.akamaized.net,DIRECT
+  - DOMAIN-SUFFIX,steampipe-kr.akamaized.net,DIRECT
+
+  # 新增
+  - DOMAIN-SUFFIX,steamserver.net,DIRECT
+  - DOMAIN-SUFFIX,steamstatic.com,DIRECT
+
+  - DOMAIN-SUFFIX,dl.steam.clngaa.com,DIRECT
+  - DOMAIN-SUFFIX,dl.steam.ksyna.com,DIRECT
+
+  - DOMAIN-SUFFIX,st.dl.bscstorage.net,DIRECT
+  - DOMAIN-SUFFIX,st.dl.eccdnx.com,DIRECT
+  - DOMAIN-SUFFIX,st.dl.pinyuncloud.com,DIRECT
+
+  - DOMAIN-SUFFIX,steamchina.com,DIRECT
+  - DOMAIN-SUFFIX,wmsjsteam.com,DIRECT
+  - DOMAIN-SUFFIX,csgo.wmsj.cn,DIRECT
+  - DOMAIN-SUFFIX,dota2.wmsj.cn,DIRECT
+
+  # =========================
+  # 常见 Mod / 文件下载站
+  # 网页仍然走代理
+  # 下载直连
+  # =========================
+  - DOMAIN-SUFFIX,pixeldrain.com,DIRECT
+  - DOMAIN-SUFFIX,gofile.io,DIRECT
+  - DOMAIN-SUFFIX,catbox.moe,DIRECT
+  - DOMAIN-SUFFIX,litterbox.catbox.moe,DIRECT
+  - DOMAIN-SUFFIX,1fichier.com,DIRECT
+  - DOMAIN-SUFFIX,mediafire.com,DIRECT
+  - DOMAIN-SUFFIX,bunkr.si,DIRECT
+  - DOMAIN-SUFFIX,bunkr.ru,DIRECT
+  - DOMAIN-SUFFIX,bunkr.is,DIRECT
+  # =========================
+  # The Sims 4 / Mod 网站
+  # =========================
+  - DOMAIN-SUFFIX,wickedwhimsmod.com,DIRECT
+  - DOMAIN-SUFFIX,wicked.cc,DIRECT
+  - DOMAIN-SUFFIX,loverslab.com,DIRECT
+
+  - DOMAIN-SUFFIX,thesimsresource.com,DIRECT
+  - DOMAIN-SUFFIX,modthesims.info,DIRECT
+  - DOMAIN-SUFFIX,curseforge.com,DIRECT
+  - DOMAIN-SUFFIX,simsfinds.com,DIRECT
+  - DOMAIN-SUFFIX,simsdom.com,DIRECT
+  - DOMAIN-SUFFIX,simfileshare.net,DIRECT
+  - DOMAIN-SUFFIX,simscommunity.info,DIRECT
+
+  - DOMAIN-SUFFIX,scarletsrealm.com,DIRECT
+  - DOMAIN-SUFFIX,adeepindigomods.com,DIRECT
+
+  # 常见下载站
+  - DOMAIN-SUFFIX,pixeldrain.com,DIRECT
+  - DOMAIN-SUFFIX,gofile.io,DIRECT
+  - DOMAIN-SUFFIX,catbox.moe,DIRECT
+  - DOMAIN-SUFFIX,litterbox.catbox.moe,DIRECT
+  - DOMAIN-SUFFIX,1fichier.com,DIRECT
+  - DOMAIN-SUFFIX,mediafire.com,DIRECT
+  - DOMAIN-SUFFIX,bunkr.si,DIRECT
+  - DOMAIN-SUFFIX,bunkr.ru,DIRECT
+  - DOMAIN-SUFFIX,bunkr.is,DIRECT
+
+  # Patreon 保持代理（登录更稳定）
+  - DOMAIN-SUFFIX,patreon.com,节点选择
+  # =========================
   # AI / 海外服务
   # =========================
   - GEOSITE,openai,节点选择
